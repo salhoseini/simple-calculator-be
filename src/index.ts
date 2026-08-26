@@ -1,1 +1,9 @@
-console.log("Hello World!");
+import { createApp } from "./app";
+
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
+
+const app = createApp();
+
+app.listen(PORT, () => {
+  console.log(`calculator-backend listening on port ${PORT}`);
+});
