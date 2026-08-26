@@ -1,21 +1,24 @@
 import express, { Application, NextFunction, Request, Response } from "express";
+import calculateRouter from "./routes/calculator.routes";
 
 export function createApp(): Application {
   const app = express();
 
   app.use(express.json());
 
-  // Minimal request logger — swap for morgan/pino later if you want.
-  app.use((req: Request, _res: Response, next: NextFunction) => {
-    console.log(`${new Date().toISOString()} ${req.method} ${req.path}`);
-    next();
-  });
+ 
+
+ app.use((req: Request, _res: Response, next: NextFunction) => {
+  console.log("DEBUG content-type:", req.headers["content-type"]);
+  console.log("DEBUG body:", req.body);
+  next();
+});
+
+   app.use("/api" , calculateRouter);
 
   app.get("/health", (_req: Request, res: Response) => {
     res.status(200).json({ status: "ok" });
   });
-
-  // Calculator routes will be mounted here in Step 3.
 
   // Catch-all for anything that doesn't match a route above.
   app.use((req: Request, res: Response) => {
