@@ -1,4 +1,3 @@
-
 # --- build ----
 
 FROM node:20-alpine AS builder
@@ -10,7 +9,7 @@ COPY package*.json ./
 RUN npm ci
 
 COPY tsconfig.json ./
-COPY src ./
+COPY src src
 
 RUN npm run build
 
