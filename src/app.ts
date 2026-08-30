@@ -1,4 +1,5 @@
 import express, { Application, NextFunction, Request, Response } from "express";
+import cors from "cors";
 import calculateRouter from "./routes/calculator.routes";
 import { AppError } from "./errors/app-error";
 
@@ -6,6 +7,8 @@ export function createApp(): Application {
   const app = express();
 
   app.use(express.json());
+
+  app.use(cors({ origin: "http://localhost:5173" }));
 
   app.use("/api" , calculateRouter);
 
